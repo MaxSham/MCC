@@ -3,7 +3,6 @@ import Records.DataRecord;
 import Records.RecordsHolder;
 import Records.TMRecord;
 import Records.TechRecord;
-import Utility.*;
 import Utility.Writer;
 import org.xml.sax.SAXException;
 
@@ -21,15 +20,11 @@ public class App {
         recordsHolder = new RecordsHolder();
     }
     public void run(){
-        run(Integer.MAX_VALUE);
-    }
-    public void run(int size){
         try(FileInputStream stream = new FileInputStream(knpFile)) {
 
             byte[] recordInBytes = new byte[16];
 
-            while(stream.read(recordInBytes) != -1 && size != 0){
-                size -= 1;
+            while(stream.read(recordInBytes) != -1 ){
 
                 byte[] paramNum = Arrays.copyOf(recordInBytes, 2);
                 byte[] bTime = Arrays.copyOfRange(recordInBytes, 2, 6);
@@ -65,9 +60,6 @@ public class App {
                     record = new DataRecord(paramNum, bTime, razm, atr_type, bData);
                 }
                 recordsHolder.addRecord(record);
-            }
-            if(size != 0){
-                System.out.println("-=-=-=-=-=-=-=-=-=-=-=-END FILE-=-=-=-=-=-=-=-=-=");
             }
 
         } catch (Exception e) {

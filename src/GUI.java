@@ -31,7 +31,7 @@ public class GUI extends JFrame implements ActionListener {
         setTitle("Телеметрия КАНОПУС-В");
         setIconImage(new ImageIcon("Data/source/Kanopus-V.jpg").getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(470,730);
+        setSize(465,730);
         setResizable(false);
 
 
