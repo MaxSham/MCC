@@ -52,6 +52,8 @@ public class Writer {
             }
         }
         printPageInfo(filter,  pageByParam);
+        printWriter.close();
+        fileWriter.close();
     }
     private static void printPageInfo(List<String> params, Map<String, Integer> pagesInfo){
         printWriter.println("\nСодержание:");

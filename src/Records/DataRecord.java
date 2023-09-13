@@ -57,7 +57,7 @@ public class DataRecord extends TMRecord{
         };
 
 
-        return String.format("%12s) %10s  %8s  %20s  %10s", getTimeString(), paramName, t, getData().toString(), razmernost);
+        return String.format("%12s) %-10s  %8s  %25s  %10s", getTimeString(), paramName, t, getData().toString(), razmernost);
     }
     private Object getData(){
         switch (type){
