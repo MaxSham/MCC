@@ -1,12 +1,36 @@
 package Telemetry;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+
 public class Config {
     public static String KNPFilePath = "Data/source/190829_v29854.KNP";
     public static String XMLFilePath = "Data/source/KNP-173.14.33.58.dat.xml";
-    public static String IonFilePath = "Data/source/dimens.ion";
+    public static String DimFilePath = "Data/source/dimens.ion";
     public static String RezFilePath = "Data/out/";
 
-    public static void setConfig(String confFilePath){
+    public static int PageSize = 40;
 
+    public static void setConfig(String confFilePath) {
+        try {
+            File xmlFile = new File(confFilePath);
+            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = documentBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            KNPFilePath = doc.getElementsByTagName("KNPFile").item(0).getTextContent();
+            XMLFilePath = doc.getElementsByTagName("XMLFile").item(0).getTextContent();
+            DimFilePath = doc.getElementsByTagName("DimensionsFile").item(0).getTextContent();
+            RezFilePath = doc.getElementsByTagName("ResultsDir").item(0).getTextContent();
+            PageSize = Integer.parseInt(doc.getElementsByTagName("PageSize").item(0).getTextContent());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

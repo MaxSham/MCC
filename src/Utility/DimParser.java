@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class DimParser {
     Map<Short, String> map;
 
-    public DimParser(String fileName){
+    public DimParser(){
         map = new HashMap<Short, String>();
         short i = 1;
         BufferedReader reader;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(Config.IonFilePath)), "WINDOWS-1251"));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(Config.DimFilePath)), "WINDOWS-1251"));
             String line = reader.readLine();
 
             while (line != null) {

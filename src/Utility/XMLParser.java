@@ -1,5 +1,6 @@
 package Utility;
 
+import Telemetry.Config;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -19,9 +20,9 @@ public class XMLParser {
     Document doc;
     Map<Short, String> map;
 
-    public XMLParser(String fileName) {
+    public XMLParser() {
         try{
-            File xmlFile = new File(fileName);
+            File xmlFile = new File(Config.XMLFilePath);
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             doc = documentBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();

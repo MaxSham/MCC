@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class DataRecord extends TMRecord{
 
-    private static DimParser dimParser = new DimParser(Config.IonFilePath);
+    private static DimParser dimParser = new DimParser();
     String razmernost;
     RecordsType type;
     byte[] data;

@@ -22,7 +22,7 @@ public class Writer {
         int currentPage = 1;
 
         Map<String, List<String>> recordsByAlphabet = new HashMap<>();
-        Map<String, Integer> pageByParam = new HashMap<>();
+        Map<String, String> pageByParam = new HashMap<>();
         for (String param: filter) {
             List<String> buff = new ArrayList<String>();
             recordsByAlphabet.put(param, buff);
@@ -38,7 +38,8 @@ public class Writer {
 
         for (String param: filter) {
             List<String> buff = recordsByAlphabet.get(param);
-            pageByParam.put(param, currentPage);
+            String paramInfo = String.format("(%d)-%d", buff.size(), currentPage);
+            pageByParam.put(param, paramInfo);
             for (String lineForPrint: buff) {
                 printWriter.println(lineForPrint);
                 currentPageSize++;
@@ -60,11 +61,12 @@ public class Writer {
         printWriter.close();
         fileWriter.close();
     }
-    private static void printPageInfo(List<String> params, Map<String, Integer> pagesInfo){
+    private static void printPageInfo(List<String> params, Map<String, String> pagesInfo){
         printWriter.println("\nСодержание:");
 
         for (String param:params) {
-            printWriter.println(String.format("%-20s%-8d", param, pagesInfo.get(param)));
+            String[] info = pagesInfo.get(param).split("-");
+            printWriter.println(String.format("%-20s%-8s", param + info[0], info[1]));
         }
 
     }

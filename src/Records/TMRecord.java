@@ -13,7 +13,7 @@ public abstract class TMRecord {
     String paramName;
     final int time;
     private final Boolean isTech;
-    static XMLParser xmlParser = new XMLParser(Config.XMLFilePath);
+    static XMLParser xmlParser = new XMLParser();
 
     TMRecord(byte[] _paramNum, byte[] _time, Boolean _isTech){
         paramNum = ByteBuffer.wrap(_paramNum).getShort();
