@@ -2,6 +2,7 @@ import Telemetry.App;
 import Telemetry.Config;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +15,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener, ItemListener {
     Box box;
     JButton bStart;
     JButton bAll;
     JButton bClear;
+    JToggleButton tbSortingTiming;
+    JToggleButton tbSortingAlphabet;
     JScrollPane jScrollPane;
+    JLabel labelStat;
+    boolean isSortingAlphabet = true;
 
     App app;
     boolean isReadyForPrint = false;
@@ -31,7 +36,7 @@ public class GUI extends JFrame implements ActionListener {
         setTitle("Телеметрия КАНОПУС-В");
         setIconImage(new ImageIcon("Data/source/Kanopus-V.jpg").getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(465,730);
+        setSize(463,735);
         setResizable(false);
 
 
@@ -47,6 +52,19 @@ public class GUI extends JFrame implements ActionListener {
         bClear.setBounds(325,0,125,50);
         bClear.addActionListener(this);
 
+        tbSortingTiming = new JToggleButton("Время");
+        tbSortingTiming.setBounds(0,550,100,50);
+        tbSortingTiming.setSelected(!isSortingAlphabet);
+        tbSortingTiming.addItemListener(this);
+
+        tbSortingAlphabet = new JToggleButton("Алфавит");
+        tbSortingAlphabet.setBounds(100,550,100,50);
+        tbSortingAlphabet.setSelected(isSortingAlphabet);
+        tbSortingAlphabet.addItemListener(this);
+
+        labelStat = new JLabel();
+        labelStat.setBounds(0,0,200, 80);
+
         box = Box.createVerticalBox();
 
         jScrollPane = new JScrollPane(box);
@@ -54,9 +72,12 @@ public class GUI extends JFrame implements ActionListener {
         add(jScrollPane);
 
         setLayout(null);
+        add(tbSortingTiming);
+        add(tbSortingAlphabet);
         add(bStart);
         add(bAll);
         add(bClear);
+        add(labelStat);
         setVisible(true);
     }
     private void setSelected(boolean state){
@@ -73,7 +94,7 @@ public class GUI extends JFrame implements ActionListener {
         LocalDateTime now = LocalDateTime.now();
         resultFilePath += dtf.format(now) + ".txt";
         List<String> filter = getSelected();
-        app.printToFile(filter, resultFilePath, true);
+        app.printToFile(filter, resultFilePath, isSortingAlphabet);
     }
 
     public void fillParams(List<String> params){
@@ -82,6 +103,7 @@ public class GUI extends JFrame implements ActionListener {
             box.add(jCheckBox);
         };
         jScrollPane.updateUI();
+        setStat(app.getStatTech(), app.getStatData(), params.size() - 1);
     }
 
     private List<String> getSelected(){
@@ -95,6 +117,18 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
         return result;
+    }
+    public void setStat(int tech, int data, int params){
+        labelStat.setText(conToMultiline(String.format("СТАТИСТИКА:\n" +
+                        "Параметров: %d\n" +
+                        "Всего записей: %d\n" +
+                        "Полезных: %d\n" +
+                        "Служебных: %d",
+                        params, tech+data, data, tech)));
+        labelStat.setVisible(true);
+    }
+    private String conToMultiline(String orig){
+        return "<html>" + orig.replaceAll("\n", "<br>");
     }
 
     @Override
@@ -113,6 +147,16 @@ public class GUI extends JFrame implements ActionListener {
                 isReadyForPrint = true;
             }
 
+        }
+    }
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if(e.getSource() == tbSortingTiming){
+            isSortingAlphabet = !tbSortingTiming.isSelected();
+            tbSortingAlphabet.setSelected(!tbSortingTiming.isSelected());
+        } else if (e.getSource() == tbSortingAlphabet) {
+            isSortingAlphabet = tbSortingAlphabet.isSelected();
+            tbSortingTiming.setSelected(!tbSortingAlphabet.isSelected());
         }
     }
 }

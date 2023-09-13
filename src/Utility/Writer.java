@@ -45,12 +45,17 @@ public class Writer {
                 if(currentPageSize == PAGE_SIZE){
                     printWriter.print("-------------------------------------------------------------------\n");
                     printWriter.print(String.format("%33d",currentPage));
+                    printWriter.print("\n-------------------------------------------------------------------");
                     printWriter.print("\n-------------------------------------------------------------------\n\n");
                     currentPage++;
                     currentPageSize = 0;
                 }
             }
         }
+        printWriter.print("-------------------------------------------------------------------\n");
+        printWriter.print(String.format("%33d",currentPage));
+        printWriter.print("\n-------------------------------------------------------------------\n\n");
+
         printPageInfo(filter,  pageByParam);
         printWriter.close();
         fileWriter.close();

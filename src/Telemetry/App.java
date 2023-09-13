@@ -67,6 +67,13 @@ public class App {
         }
     }
 
+    public int getStatTech(){
+        return recordsHolder.getTechCount();
+    }
+    public int getStatData(){
+        return recordsHolder.getDataCount();
+    }
+
     public void printToFile(List<String> filter, String path, boolean alphabetSort){
         try {
             if(alphabetSort){
