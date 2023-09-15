@@ -3,12 +3,8 @@ package Utility;
 import Telemetry.Config;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class DimParser {
     Map<Short, String> map;

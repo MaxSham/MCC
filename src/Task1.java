@@ -2,9 +2,7 @@ import Telemetry.Config;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.ByteBuffer;
 
 public class Task1 {
     public static void run(int amountOfLines, int weight){

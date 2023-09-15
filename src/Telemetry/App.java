@@ -8,7 +8,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class App {
@@ -97,8 +96,4 @@ public class App {
         return result;
     }
 
-
-    public void task1(){
-
-    }
 }

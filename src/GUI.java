@@ -2,7 +2,6 @@ import Telemetry.App;
 import Telemetry.Config;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +9,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 public class GUI extends JFrame implements ActionListener, ItemListener {
     Box box;
@@ -25,6 +22,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
     JToggleButton tbSortingAlphabet;
     JScrollPane jScrollPane;
     JLabel labelStat;
+    JLabel labelFileName;
     boolean isSortingAlphabet = true;
 
     App app;
@@ -66,6 +64,11 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         labelStat = new JLabel();
         labelStat.setBounds(0,0,200, 80);
 
+        String[] buff = Config.KNPFilePath.split("/");
+        String fileName = buff[buff.length-1];
+        labelFileName = new JLabel(fileName);
+        labelFileName.setBounds(0, 500, 200, 50);
+
         box = Box.createVerticalBox();
 
         jScrollPane = new JScrollPane(box);
@@ -79,6 +82,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         add(bAll);
         add(bClear);
         add(labelStat);
+        add(labelFileName);
         setVisible(true);
     }
     private void setSelected(boolean state){

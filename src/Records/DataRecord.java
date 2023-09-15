@@ -1,11 +1,6 @@
 package Records;
 import Utility.*;
-import Telemetry.Config;
-
-import javax.print.DocFlavor;
-import java.io.ObjectInputFilter;
 import java.nio.ByteBuffer;
-import java.lang.Integer;
 import java.util.Arrays;
 
 public class DataRecord extends TMRecord{
@@ -22,8 +17,6 @@ public class DataRecord extends TMRecord{
                       byte[] _data)
     {
         super(_paramNum, _time, false);
-
-        //short paramNum=(short)(((_paramNum[0] & 0xFF) << 8) | (_paramNum[1] & 0xFF));
 
         razmernost = dimParser.getRazm((short) _razmernost);
 
@@ -60,20 +53,14 @@ public class DataRecord extends TMRecord{
         return String.format("%12s) %-10s  %8s  %25s  %10s", getTimeString(), paramName, t, getData().toString(), razmernost);
     }
     private Object getData(){
-        switch (type){
-            case LONG, CODE:
+        return switch (type) {
+            case LONG, CODE -> {
                 byte[] buff = Arrays.copyOfRange(data, 4, 8);
-                return ByteBuffer.wrap(buff).getInt();
-            case DOUBLE:
-                return ByteBuffer.wrap(data).getDouble();
-            case POINT:
-                return "POINT_DATA";
-        }
-        return "NO DATA";
-    }
-
-    public static XMLParser getXmlParser(){
-        return xmlParser;
+                yield ByteBuffer.wrap(buff).getInt();
+            }
+            case DOUBLE -> ByteBuffer.wrap(data).getDouble();
+            case POINT -> "POINT_DATA";
+        };
     }
 }
 

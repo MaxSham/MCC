@@ -1,14 +1,13 @@
 package Records;
-import Telemetry.Config;
 import Utility.XMLParser;
 
 import java.nio.ByteBuffer;
 
 public abstract class TMRecord {
 
-    final int SEC = 1000;
-    final int MIN = SEC*60;
-    final int HOUR = MIN*60;
+    final static int SEC = 1000;
+    final static int MIN = SEC*60;
+    final static int HOUR = MIN*60;
     final short paramNum;
     String paramName;
     final int time;

@@ -47,10 +47,4 @@ public class RecordsHolder {
     public Set<String> getParametrsInside(){
         return parametrsInside;
     }
-    String createRecordsFile(String fileName){
-        return "result";
-    }
-    String createStatsFile(String fileName){
-        return "result";
-    }
 }
