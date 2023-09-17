@@ -15,6 +15,7 @@ import java.util.Map;
 public class XMLParser {
     Document doc;
     Map<Short, String> map;
+    Map<Short, String> mapDiscription;
 
     public XMLParser() {
         try{
@@ -29,14 +30,26 @@ public class XMLParser {
     }
     private void fillMap(){
         map = new HashMap<Short, String>();
+        mapDiscription = new HashMap<Short, String>();
         map.put((short)-1, "-Tech-");
 
         NodeList nodeList = doc.getElementsByTagName("Param");
         for(int i = 0; i < nodeList.getLength(); i++){
             NamedNodeMap nnm = nodeList.item(i).getAttributes();
-            map.put(Short.valueOf(getParamString(nnm, 1)), getParamString(nnm, 0));
+            String paramNameDisc = getParamString(nnm, 0) + "@"+ getDiscription(nodeList.item(i).getChildNodes());
+            map.put(Short.valueOf(getParamString(nnm, 1)), paramNameDisc);
         }
 
+    }
+    private String getDiscription(NodeList nodeList){
+        int size = nodeList.getLength();
+        for(int i = 0; i < size; ++i){
+            if (nodeList.item(i).getNodeName() == "Description") {
+                System.out.println(nodeList.item(i).getTextContent());
+                return nodeList.item(i).getTextContent();
+            }
+        }
+        return null;
     }
 
     private String getParamString(NamedNodeMap nnm, int num){

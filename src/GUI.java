@@ -104,7 +104,12 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
     public void fillParams(List<String> params){
         for(String str : params){
-            JCheckBox jCheckBox = new JCheckBox(str);
+            String[] strNameDisc = str.split("@");
+            JCheckBox jCheckBox = new JCheckBox(strNameDisc[0]);
+            if(strNameDisc.length > 1) {
+                System.out.println(strNameDisc[0]);
+                jCheckBox.setToolTipText(strNameDisc[1]);
+            }
             box.add(jCheckBox);
         };
         jScrollPane.updateUI();
