@@ -20,7 +20,7 @@ public class Config {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = documentBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
-            KNPFilePath = doc.getElementsByTagName("KNPFile").item(0).getTextContent();
+            KNPFilePath = doc.getElementsByTagName("DataFile").item(0).getTextContent();
             XMLFilePath = doc.getElementsByTagName("XMLFile").item(0).getTextContent();
             DimFilePath = doc.getElementsByTagName("DimensionsFile").item(0).getTextContent();
             RezFilePath = doc.getElementsByTagName("ResultsDir").item(0).getTextContent();

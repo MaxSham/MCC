@@ -50,4 +50,6 @@ public abstract class TMRecord {
     }
 
     public abstract String toString();
+    public abstract String toHeaderString();
+    public abstract String toDataString();
 }

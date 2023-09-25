@@ -17,6 +17,12 @@ public class TechRecord extends TMRecord{
         type = getType(_mesType);
         data = _mes;
     }
+    public String toHeaderString(){
+        return null;
+    }
+    public String toDataString(){
+        return null;
+    }
 
     public String toString() {
         String t = switch (type){

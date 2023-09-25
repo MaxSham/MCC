@@ -11,15 +11,15 @@ import java.io.*;
 import java.util.*;
 
 public class App {
-    File knpFile;
+    File dataFile;
     RecordsHolder recordsHolder;
 
-    public App(String KNPFileName) throws ParserConfigurationException, IOException, SAXException {
-        knpFile = new File(KNPFileName);
+    public App(String DataFileName) throws ParserConfigurationException, IOException, SAXException {
+        dataFile = new File(DataFileName);
         recordsHolder = new RecordsHolder();
     }
     public void run(){
-        try(FileInputStream stream = new FileInputStream(knpFile)) {
+        try(FileInputStream stream = new FileInputStream(dataFile)) {
 
             byte[] recordInBytes = new byte[16];
 
@@ -30,9 +30,10 @@ public class App {
                 TMRecord record;
                 if((paramNum[0]&0xFF) == 0xFF && (paramNum[1]&0xFF) == 0xFF){ // Служебная
 
-                    byte[] bMesZnach = Arrays.copyOfRange(recordInBytes, 6, 8);
+                    byte bMes = recordInBytes[6];
+                    byte bZnach = recordInBytes[7];
                     byte[] bData = Arrays.copyOfRange(recordInBytes, 8, 16);
-                    if(bMesZnach[0] == 1){
+                    if(bMes == 1){
                         byte[] extraData = new byte[16];
                         stream.read(extraData);
                         byte[] buff = bData;
@@ -40,10 +41,10 @@ public class App {
                         System.arraycopy(buff, 0, bData, 0, 8);
                         System.arraycopy(extraData, 0, bData, 8, 16);
                     }
-                    record = new TechRecord(paramNum, bTime, bMesZnach[0], bMesZnach[1],bData);
+                    record = new TechRecord(paramNum, bTime, bMes, bZnach, bData);
                 }
                 else{                                           // Обычная
-                    byte razm = recordInBytes[6];
+                    byte dim = recordInBytes[6];
                     byte atr_type = recordInBytes[7];
                     byte[] bData = Arrays.copyOfRange(recordInBytes, 8, 16);
                     if((atr_type&0x0F) == 3){
@@ -56,7 +57,7 @@ public class App {
                         System.arraycopy(buff, 0, bData, 0, 8);
                         System.arraycopy(extraData, 0, bData, 8, extraDataSize);
                     }
-                    record = new DataRecord(paramNum, bTime, razm, atr_type, bData);
+                    record = new DataRecord(paramNum, bTime, dim, atr_type, bData);
                 }
                 recordsHolder.addRecord(record);
             }

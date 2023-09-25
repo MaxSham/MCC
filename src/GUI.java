@@ -1,5 +1,6 @@
 import Telemetry.App;
 import Telemetry.Config;
+import Utility.XMLParser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,12 +105,8 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 
     public void fillParams(List<String> params){
         for(String str : params){
-            String[] strNameDisc = str.split("@");
-            JCheckBox jCheckBox = new JCheckBox(strNameDisc[0]);
-            if(strNameDisc.length > 1) {
-                System.out.println(strNameDisc[0]);
-                jCheckBox.setToolTipText(strNameDisc[1]);
-            }
+            JCheckBox jCheckBox = new JCheckBox(str);
+            jCheckBox.setToolTipText(XMLParser.getDiscription(str));
             box.add(jCheckBox);
         };
         jScrollPane.updateUI();

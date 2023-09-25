@@ -21,10 +21,10 @@ public class Writer {
         int currentPageSize = 0;
         int currentPage = 1;
 
-        Map<String, List<String>> recordsByAlphabet = new HashMap<>();
+        Map<String, List<TMRecord>> recordsByAlphabet = new HashMap<>();
         Map<String, String> pageByParam = new HashMap<>();
         for (String param: filter) {
-            List<String> buff = new ArrayList<String>();
+            List<TMRecord> buff = new ArrayList<TMRecord>();
             recordsByAlphabet.put(param, buff);
         }
 
@@ -32,21 +32,35 @@ public class Writer {
         for(int i = 0; i < size; ++i){
             TMRecord record = records.get(i);
             if(filter.contains(record.getParamName())){
-                recordsByAlphabet.get(record.getParamName()).add(record.toString());
+                recordsByAlphabet.get(record.getParamName()).add(record);
             }
         }
-
+        boolean firstTime;
         for (String param: filter) {
-            List<String> buff = recordsByAlphabet.get(param);
+            List<TMRecord> buff = recordsByAlphabet.get(param);
             String paramInfo = String.format("(%d)-%d", buff.size(), currentPage);
             pageByParam.put(param, paramInfo);
-            for (String lineForPrint: buff) {
-                printWriter.println(lineForPrint);
+            firstTime = true;
+            if(PAGE_SIZE - currentPageSize < 3){
+                printWriter.print("-------------------------------------------------------------------\n");
+                printWriter.print(String.format("%33d",currentPage));
+                printWriter.print("\n-------------------------------------------------------------------");
+                printWriter.print("\n-------------------------------------------------------------------\n\n");
+                currentPage++;
+                currentPageSize = 0;
+            }
+            for (TMRecord recordToPrint: buff) {
+                if(firstTime || currentPageSize == 0){
+                    printWriter.println("-".repeat(58));
+                    printWriter.println(recordToPrint.toHeaderString());
+                    firstTime = false;
+                    currentPageSize+=2;
+                }
+                printWriter.println(recordToPrint.toDataString());
                 currentPageSize++;
                 if(currentPageSize == PAGE_SIZE){
                     printWriter.print("-------------------------------------------------------------------\n");
                     printWriter.print(String.format("%33d",currentPage));
-                    printWriter.print("\n-------------------------------------------------------------------");
                     printWriter.print("\n-------------------------------------------------------------------\n\n");
                     currentPage++;
                     currentPageSize = 0;

@@ -1,6 +1,6 @@
 <Settings>
     <ResultsDir>Data/out/</ResultsDir>
-    <KNPFile>Data/source/190829_v29854.KNP</KNPFile>
+    <DataFile>Data/source/190829_v29854.KNP</DataFile>
     <DimensionsFile>Data/source/dimens.ion</DimensionsFile>
     <XMLFile>Data/source/KNP-173.14.33.58.dat.xml</XMLFile>
     <PageSize>50</PageSize>
