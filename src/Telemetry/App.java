@@ -1,8 +1,5 @@
 package Telemetry;
-import Records.DataRecord;
-import Records.RecordsHolder;
-import Records.TMRecord;
-import Records.TechRecord;
+import Records.*;
 import Utility.Writer;
 import org.xml.sax.SAXException;
 
@@ -57,7 +54,8 @@ public class App {
                         System.arraycopy(buff, 0, bData, 0, 8);
                         System.arraycopy(extraData, 0, bData, 8, extraDataSize);
                     }
-                    record = new DataRecord(paramNum, bTime, dim, atr_type, bData);
+                    record = DataRecordsBuilder.createDataRecord(paramNum, bTime, dim, atr_type, bData);
+//                    record = new DataRecord(paramNum, bTime, dim, atr_type, bData);
                 }
                 recordsHolder.addRecord(record);
             }
