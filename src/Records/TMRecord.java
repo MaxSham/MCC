@@ -22,7 +22,7 @@ public abstract class TMRecord {
     }
     public Boolean isTech(){
         return isTech;
-    }
+    }   
 
     public short getParamNum(){
         return paramNum;

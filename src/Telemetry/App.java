@@ -55,7 +55,6 @@ public class App {
                         System.arraycopy(extraData, 0, bData, 8, extraDataSize);
                     }
                     record = DataRecordsBuilder.createDataRecord(paramNum, bTime, dim, atr_type, bData);
-//                    record = new DataRecord(paramNum, bTime, dim, atr_type, bData);
                 }
                 recordsHolder.addRecord(record);
             }
@@ -83,10 +82,6 @@ public class App {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-    public void print(){
-        recordsHolder.printToConsole();
-        System.out.println("Data:"+recordsHolder.getDataCount() + " Tech:"+recordsHolder.getTechCount());
     }
     public List<String> getParamsInside(){
         Set<String> buff = recordsHolder.getParametrsInside();

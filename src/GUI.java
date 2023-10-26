@@ -175,7 +175,7 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             setSelected(true);
         } else if (e.getSource() == bClear) {
             setSelected(false);
-            setMercedes();
+            //setMercedes();
         } else if (e.getSource() == bStart){
             if(isReadyForPrint){
                 printToFile();
