@@ -18,10 +18,10 @@ public class TechRecord extends TMRecord{
         data = _mes;
     }
     public String toHeaderString(){
-        return null;
+        return toString();
     }
     public String toDataString(){
-        return null;
+        return toString();
     }
 
     public String toString() {

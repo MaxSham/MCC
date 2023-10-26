@@ -85,38 +85,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
         add(labelFileName);
         setVisible(true);
     }
-
-    public void setMercedes(){
-        getContentPane().setBackground(new Color(14,15,19));
-        bStart.setBackground(new Color(4,191,173));
-        bStart.setForeground(new Color(14,15,19));
-        bAll.setBackground(new Color(4,191,173));
-        bAll.setForeground(new Color(14,15,19));
-        bClear.setBackground(new Color(4,191,173));
-        bClear.setForeground(new Color(14,15,19));
-        tbSortingTiming.setBackground(new Color(4,191,173));
-        tbSortingTiming.setForeground(new Color(14,15,19));
-        tbSortingAlphabet.setBackground(new Color(4,191,173));
-        tbSortingAlphabet.setForeground(new Color(14,15,19));
-        labelStat.setForeground(new Color(193, 212, 217));
-        labelStat.setForeground(new Color(200, 204, 206));
-        labelFileName.setBounds(0, 500, 200, 50);
-        labelFileName.setForeground(new Color(200, 204, 206));
-
-        box.setForeground(new Color(14,15,19));
-        box.setBackground(new Color(14,15,19));
-        box.setOpaque(true);
-        jScrollPane.setForeground(new Color(14,15,19));
-        jScrollPane.setBackground(new Color(14,15,19));
-        jScrollPane.setOpaque(true);
-
-        Component[] cbs = box.getComponents();
-        for(int i = 0; i < cbs.length; ++i){
-            cbs[i].setBackground(new Color(14,15,19));
-            cbs[i].setForeground(new Color(200, 204, 206));
-        }
-
-    }
     private void setSelected(boolean state){
         int size = box.getComponentCount();
         for(int i = 0; i < size; ++i){
@@ -175,7 +143,6 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
             setSelected(true);
         } else if (e.getSource() == bClear) {
             setSelected(false);
-            //setMercedes();
         } else if (e.getSource() == bStart){
             if(isReadyForPrint){
                 printToFile();

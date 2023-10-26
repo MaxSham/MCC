@@ -89,20 +89,12 @@ public class Writer {
         fileWriter = new FileWriter(filePath);
         printWriter = new PrintWriter(fileWriter);
 
-        int currentPageSize = 0;
-        int currentPage = 1;
-
         int size = records.size();
         for(int i = 0; i < size; ++i){
             TMRecord record = records.get(i);
             if(filter.contains(record.getParamName())){
-                printWriter.println(record.toString());
-                currentPageSize++;
-                if(currentPageSize == PAGE_SIZE){
-                    printWriter.print("\n----------------------- " + currentPage + " -----------------------\n\n");
-                    currentPage++;
-                    currentPageSize = 0;
-                }
+                printWriter.println(record.toHeaderString());
+                printWriter.println(record.toDataString());
             }
         }
         printWriter.close();
